@@ -1,4 +1,4 @@
-![Hi! I'm Irakli Imesashvili Web Developer (1)](https://user-images.githubusercontent.com/77686006/173289305-29af7981-a2e6-4919-a8a5-1a6f13da1411.png)
+![LinkedinBanner](https://user-images.githubusercontent.com/77686006/182469777-daadc9c4-6c57-45ac-9699-4c807aafbca2.png)
 
 - 👋 Hi, I’m @ImesashviliIrakli
 - I'm an Enthusiastic Junior Software Engineer, eager to contribute to team success through hard work, attention to detail and excellent organizational skills. Clear understanding of SQL,C#/.Net and Angular/React and training in SQl, C#/.Net. Motivated to learn and grow.
