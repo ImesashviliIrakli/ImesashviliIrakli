@@ -3,7 +3,7 @@
 - 👋 Hi, I’m @ImesashviliIrakli
 - I'm an Enthusiastic Software Engineer, eager to contribute to team success through hard work, attention to detail and excellent organizational skills. Clear understanding of SQL,C#/.Net and React and training in SQl, C#/.Net. Motivated to learn and grow.
 
-- Please visit my website at irakli-imesashvili.com
+- Please visit my website at <a href="irakli-imesashvili.com">irakli-imesashvili.com</a>
 
 Contacts:
 
