@@ -1,8 +1,9 @@
 ![LinkedinBanner](https://user-images.githubusercontent.com/77686006/182469777-daadc9c4-6c57-45ac-9699-4c807aafbca2.png)
 
 - 👋 Hi, I’m @ImesashviliIrakli
-- I'm an Enthusiastic Junior Software Engineer, eager to contribute to team success through hard work, attention to detail and excellent organizational skills. Clear understanding of SQL,C#/.Net and Angular/React and training in SQl, C#/.Net. Motivated to learn and grow.
+- I'm an Enthusiastic Software Engineer, eager to contribute to team success through hard work, attention to detail and excellent organizational skills. Clear understanding of SQL,C#/.Net and React and training in SQl, C#/.Net. Motivated to learn and grow.
 
+- Please visit my website at irakli-imesashvili.com
 
 Contacts:
 
