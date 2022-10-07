@@ -13,7 +13,7 @@ Contacts:
 
 <a></a>
 
-#**Skills:**
+#Skills:
 
 **Programming languages:**
 
