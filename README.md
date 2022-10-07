@@ -1,13 +1,12 @@
 ![LinkedinBanner](https://user-images.githubusercontent.com/77686006/182469777-daadc9c4-6c57-45ac-9699-4c807aafbca2.png)
 
 # - 👋 Hi, I’m @ImesashviliIrakli
+
 ### - I'm an Enthusiastic Software Engineer, eager to contribute to team success through hard work, attention to detail and excellent organizational skills. Clear understanding of SQL,C#/.Net and React and training in SQl, C#/.Net. Motivated to learn and grow.
 
 ### - Please visit my website at <a href="https://www.irakli-imesashvili.com">irakli-imesashvili.com</a>
 
 ## Contacts:
-
-<sup> something </sup>
 
 <a href="https://www.instagram.com/imesashvili_irakli/">![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white)</a><a href="https://www.linkedin.com/in/irakli-imesashvili/">![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)</a><a href="https://www.facebook.com/irakli.imesashvili">![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white)</a><a href="https://twitter.com/IImesashvili">![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)</a>
 
