@@ -1,4 +1,5 @@
-![LinkedinBanner](https://user-images.githubusercontent.com/77686006/182469777-daadc9c4-6c57-45ac-9699-4c807aafbca2.png)
+
+![NewBanner](https://user-images.githubusercontent.com/77686006/201490999-7d6ae69d-074a-41ec-91c9-fe1790d4a6a7.jpg)
 
 # - 👋 Hi, I’m @ImesashviliIrakli
 
