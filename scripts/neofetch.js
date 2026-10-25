@@ -27,7 +27,6 @@ const months = (() => { const n = new Date(); return (n.getUTCFullYear() - 2021)
 const uptime = `${Math.floor(months / 12)} years, ${months % 12} months`;
 const cc = u.contributionsCollection;
 
-const exp = (role, when) => role.padEnd(28) + when;
 const pair = (k1, v1, k2, v2) => [k1, String(v1).padEnd(10), k2, String(v2)];
 
 const info = [
@@ -46,10 +45,11 @@ const info = [
   ['Cert', 'Azure Fundamentals AZ-900'],
   [],
   ['head', 'Experience'],
-  ['Akvelon', exp('Senior Software Engineer', '2025 - now')],
-  ['IGC', exp('Software Engineer / Mentor', '2021 - 2025')],
-  ['2G', exp('Software Engineer', '2022 - 2024')],
-  ['EPAM', exp('Software Engineer', '2022')],
+  ['co', 'Akvelon', 'Apr 2025 - Present'], ['role', 'Senior Software Engineer'],
+  ['co', 'International Gambling Company', 'Jan 2023 - Mar 2025'], ['role', 'Software Engineer / Mentor'],
+  ['co', '2G', 'Dec 2022 - May 2024'], ['role', 'Software Engineer'],
+  ['co', 'EPAM Systems', 'Jul 2022 - Nov 2022'], ['role', 'Software Engineer'],
+  ['co', 'International Gambling Company', 'Feb 2021 - Jul 2022'], ['role', 'Junior Software Engineer'],
   [],
   ['head', 'GitHub'],
   pair('Repos', u.repositories.totalCount, 'Stars', stars),
@@ -84,6 +84,8 @@ info.forEach(([k, v, k2, v2], i) => {
   if (!k) return;
   if (k === 'title') body = `<tspan class="key">irakli</tspan><tspan class="val">@</tspan><tspan class="key">imesashvili</tspan>`;
   else if (k === 'rule') body = `<tspan class="dim">${'─'.repeat(COLS)}</tspan>`;
+  else if (k === 'co') body = `<tspan class="key">${esc(v.padEnd(COLS - k2.length))}</tspan><tspan class="val">${k2}</tspan>`;
+  else if (k === 'role') body = `<tspan class="val">  ${esc(v)}</tspan>`;
   else if (k === 'head') body = `<tspan class="dim">─ </tspan><tspan class="val">${v}</tspan><tspan class="dim"> ${'─'.repeat(COLS - v.length - 3)}</tspan>`;
   else body = kv(k, v) + (k2 ? `<tspan class="dim">│ </tspan>` + kv(k2, v2) : '');
   lines += `<text class="ln" x="${XI}" y="${y}" style="animation-delay:${d}s">${body}</text>`;
