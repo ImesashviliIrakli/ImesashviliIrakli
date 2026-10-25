@@ -28,6 +28,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           USERNAME: ${{ github.repository_owner }}
+      - name: card
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh api graphql -F login=${{ github.repository_owner }} -f query='query($login:String!){user(login:$login){followers{totalCount} repositories(ownerAffiliations:OWNER,privacy:PUBLIC,first:100){totalCount nodes{stargazerCount}} contributionsCollection{contributionCalendar{totalContributions}}}}' > /tmp/stats.json
+          node scripts/neofetch.js /tmp/stats.json neofetch.svg
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
