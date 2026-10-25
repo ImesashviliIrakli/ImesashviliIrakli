@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 230" width="560" height="230">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="560" y2="0" gradientUnits="userSpaceOnUse" spreadMethod="reflect">
+      <stop offset="0" stop-color="#512bd4"/>
+      <stop offset="0.5" stop-color="#00d4ff"/>
+      <stop offset="1" stop-color="#512bd4"/>
+      <animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="560 0" dur="4s" repeatCount="indefinite"/>
+    </linearGradient>
+  </defs>
+  <style>
+    text { font-family: Consolas, "DejaVu Sans Mono", "Courier New", monospace; white-space: pre; }
+    .art { font-size: 20px; fill: url(#g); opacity: 0; animation: in .4s ease-out forwards; }
+    .l1 { animation-delay: .0s } .l2 { animation-delay: .15s } .l3 { animation-delay: .3s }
+    .l4 { animation-delay: .45s } .l5 { animation-delay: .6s } .l6 { animation-delay: .75s }
+    .sub { font-size: 18px; fill: #8b949e; opacity: 0; animation: in .4s 1.1s forwards; }
+    .cur { fill: #00d4ff; animation: blink 1s step-end infinite; }
+    @keyframes in { from { opacity: 0; transform: translateX(-12px) } to { opacity: 1; transform: none } }
+    @keyframes blink { 50% { opacity: 0 } }
+  </style>
+  <text class="art l1" x="50" y="40" xml:space="preserve">██╗██████╗  █████╗ ██╗  ██╗██╗     ██╗</text>
+  <text class="art l2" x="50" y="62" xml:space="preserve">██║██╔══██╗██╔══██╗██║ ██╔╝██║     ██║</text>
+  <text class="art l3" x="50" y="84" xml:space="preserve">██║██████╔╝███████║█████╔╝ ██║     ██║</text>
+  <text class="art l4" x="50" y="106" xml:space="preserve">██║██╔══██╗██╔══██║██╔═██╗ ██║     ██║</text>
+  <text class="art l5" x="50" y="128" xml:space="preserve">██║██║  ██║██║  ██║██║  ██╗███████╗██║</text>
+  <text class="art l6" x="50" y="150" xml:space="preserve">╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝</text>
+  <text class="sub" x="50" y="200" xml:space="preserve">&gt; Senior Software Engineer · C# / .NET · Azure<tspan class="cur">█</tspan></text>
+</svg>
