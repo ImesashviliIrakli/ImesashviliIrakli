@@ -3,10 +3,7 @@
 </p>
 
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="./profile-3d-contrib/profile-night-green.svg" />
-    <img alt="3D contribution calendar" src="./profile-3d-contrib/profile-green-animate.svg" width="100%" />
-  </picture>
+  <img src="./activity.svg" alt="Contribution heatmap with streaks" width="100%" />
 </p>
 
 <p align="center">

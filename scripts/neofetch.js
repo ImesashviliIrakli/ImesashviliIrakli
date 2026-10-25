@@ -1,5 +1,6 @@
 // Renders the neofetch-style profile card with a spinning ASCII donut (a1k0n's donut.c) as an animated SVG.
-// usage: node scripts/neofetch.js <stats.json> <out.svg>   (stats.json = output of the GraphQL query in profile.yml)
+// Also renders activity.svg: an ASCII contribution heatmap in the same style.
+// usage: node scripts/neofetch.js <stats.json> <neofetch.svg> <activity.svg>   (stats.json = output of the GraphQL query in profile.yml)
 const fs = require('fs');
 const W = 52, H = 24, FRAMES = 60, DUR = 6;
 const RAMP = '.,-~:;=!*#$@';
@@ -93,26 +94,74 @@ info.forEach(([k, v, k2, v2], i) => {
 const cy = PADY + 6 + info.length * LH;
 lines += `<text class="ln" x="${XI}" y="${cy}" style="animation-delay:1.8s"><tspan class="key">$</tspan><tspan class="cur"> █</tspan></text>`;
 
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-<style>
+const BASE = `
 :root { --bg:#0d1117; --border:#30363d; --key:#ffa657; --val:#c9d1d9; --dim:#484f58; --donut:#7ee787; }
 @media (prefers-color-scheme: light) { :root { --bg:#f6f8fa; --border:#d0d7de; --key:#953800; --val:#24292f; --dim:#afb8c1; --donut:#1a7f37; } }
 text { font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace; font-size:${FS}px; white-space:pre; }
 .bg { fill:var(--bg); stroke:var(--border); }
-.f text { fill:var(--donut); }
-.f { visibility:hidden; animation:show ${DUR}s infinite; }
-@keyframes show { 0% { visibility:visible } ${per}% { visibility:hidden } 100% { visibility:hidden } }
 .key { fill:var(--key); } .val { fill:var(--val); } .dim { fill:var(--dim); }
 .ln { animation:in .5s ease-out backwards; }
 @keyframes in { from { opacity:0 } }
 .cur { fill:var(--val); animation:blink 1.1s step-end infinite; }
-@keyframes blink { 50% { opacity:0 } }
-@media (prefers-reduced-motion: reduce) { .f, .ln, .cur { animation:none } .f:first-of-type { visibility:visible } }
-</style>
-<rect class="bg" x="0.5" y="0.5" width="${width - 1}" height="${height - 1}" rx="10"/>
-${frames}
-${lines}
+@keyframes blink { 50% { opacity:0 } }`;
+const card = (w, h, css, body) => `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+<style>${BASE}${css}</style>
+<rect class="bg" x="0.5" y="0.5" width="${w - 1}" height="${h - 1}" rx="10"/>
+${body}
 </svg>
 `;
-fs.writeFileSync(process.argv[3], svg);
-console.log('bytes', svg.length);
+
+fs.writeFileSync(process.argv[3], card(width, height, `
+.f text { fill:var(--donut); }
+.f { visibility:hidden; animation:show ${DUR}s infinite; }
+@keyframes show { 0% { visibility:visible } ${per}% { visibility:hidden } 100% { visibility:hidden } }
+@media (prefers-reduced-motion: reduce) { .f, .ln, .cur { animation:none } .f:first-of-type { visibility:visible } }`, frames + lines));
+
+// ---- activity card: ASCII contribution heatmap ----
+const days = cc.contributionCalendar.weeks.flatMap(w => w.contributionDays);
+const LEVEL = { NONE: ['·', 'l0'], FIRST_QUARTILE: ['-', 'l1'], SECOND_QUARTILE: ['+', 'l2'], THIRD_QUARTILE: ['#', 'l3'], FOURTH_QUARTILE: ['@', 'l4'] };
+const fmt = d => new Date(d + 'T00:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' });
+
+let longest = 0, run = 0;
+for (const d of days) { run = d.contributionCount ? run + 1 : 0; longest = Math.max(longest, run); }
+let current = 0;
+for (let i = days.length - 1 - (days.at(-1).contributionCount ? 0 : 1); i >= 0 && days[i].contributionCount; i--) current++;
+const best = days.reduce((b, d) => (d.contributionCount > b.contributionCount ? d : b));
+
+const CX = 16, CY = 18, GX = 64, GY = 104;
+const weeks = cc.contributionCalendar.weeks;
+let grid = '', lastMonth = -1;
+const labels = [];
+weeks.forEach((w, x) => {
+  const m = new Date(w.contributionDays[0].date).getUTCMonth();
+  if (m !== lastMonth && x < weeks.length - 2) {
+    if (labels.length && x - labels.at(-1).x < 3) labels.pop(); // a partial first month yields to the next one
+    labels.push({ x, name: new Date(w.contributionDays[0].date).toLocaleString('en-US', { month: 'short', timeZone: 'UTC' }) });
+  }
+  lastMonth = m;
+  grid += `<g class="c" style="animation-delay:${(0.3 + x * 0.025).toFixed(3)}s">` + w.contributionDays.map(d => {
+    const [ch, cls] = LEVEL[d.contributionLevel];
+    const today = d === days.at(-1) ? ' cur' : '';
+    return `<text class="${cls}${today}" x="${GX + x * CX}" y="${GY + d.weekday * CY}">${ch}</text>`;
+  }).join('') + '</g>';
+});
+labels.forEach(l => { grid += `<text class="dim" x="${GX + l.x * CX}" y="${GY - 24}">${l.name}</text>`; });
+['Mon', 'Wed', 'Fri'].forEach((d, i) => { grid += `<text class="dim" x="24" y="${GY + (1 + i * 2) * CY}">${d}</text>`; });
+
+const aw = width, ah = GY + 7 * CY + 84;
+const sy = GY + 7 * CY + 22;
+const stat = (k, v) => `<tspan class="key">${k}</tspan><tspan class="dim"> </tspan><tspan class="val">${v}</tspan>`;
+const sep = '<tspan class="dim">   │   </tspan>';
+const head = `<text class="ln" x="24" y="40"><tspan class="key">$</tspan><tspan class="val"> git log --author=irakli --since="1 year ago" | heatmap</tspan></text>
+<line x1="24" y1="54" x2="${width - 24}" y2="54" stroke="var(--border)"/>`;
+const foot = `<text class="ln" x="24" y="${sy}" style="animation-delay:1.8s">` +
+  [stat('total', `${cc.contributionCalendar.totalContributions}`), stat('longest streak', `${longest}d`), stat('current streak', `${current}d`),
+   stat('best day', `${fmt(best.date)} (${best.contributionCount})`)].join(sep) + '</text>' +
+  `<text class="ln" x="24" y="${sy + 24}" style="animation-delay:2s"><tspan class="dim">less </tspan><tspan class="l0">·</tspan> <tspan class="l1">-</tspan> <tspan class="l2">+</tspan> <tspan class="l3">#</tspan> <tspan class="l4">@</tspan><tspan class="dim"> more</tspan></text>`;
+
+fs.writeFileSync(process.argv[4], card(aw, ah, `
+.l0 { fill:var(--dim); } .l1, .l2, .l3, .l4 { fill:var(--donut); font-weight:bold; }
+.l1 { opacity:.45 } .l2 { opacity:.65 } .l3 { opacity:.85 }
+.c { animation:in .4s ease-out backwards; }
+@media (prefers-reduced-motion: reduce) { .c, .ln, .cur { animation:none } }`, head + grid + foot));
+console.log('streaks', longest, current, 'best', best.date, best.contributionCount);
