@@ -3,6 +3,12 @@
 </p>
 
 <p align="center">
+  <a href="https://www.toptal.com/developers/resume/irakli-imesashvili#PznpDp" target="_blank">
+    <img src="./toptal.svg" alt="Top 3% Talent, vetted by Toptal. Hire me" width="180" />
+  </a>
+</p>
+
+<p align="center">
   <img src="./activity.svg" alt="Contribution heatmap with streaks" width="100%" />
 </p>
 
